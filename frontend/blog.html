@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dave's Tech Corner - Home</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Tahoma&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #d4cfb8;
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 13px;
+      color: #222;
+    }
+
+    /* ── HEADER ── */
+    #header {
+      background: #2a4d7f;
+      border-bottom: 4px solid #1a3560;
+      padding: 0;
+    }
+    #header-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 14px 10px 10px;
+    }
+    #site-title {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
+      letter-spacing: 0.5px;
+    }
+    #site-title span { color: #ffd966; }
+    #site-desc {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      color: #aac4e8;
+      margin-top: 3px;
+      font-style: italic;
+    }
+
+    /* ── NAV ── */
+    #nav {
+      background: #3a6aad;
+      border-bottom: 2px solid #1a3560;
+    }
+    #nav ul {
+      max-width: 780px;
+      margin: 0 auto;
+      list-style: none;
+      display: flex;
+      padding: 0 10px;
+    }
+    #nav ul li a {
+      display: block;
+      padding: 6px 14px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      color: #e8f0fb;
+      text-decoration: none;
+      font-weight: bold;
+      border-right: 1px solid #5588cc;
+    }
+    #nav ul li a:hover { background: #1a3560; color: #ffd966; }
+    #nav ul li:first-child a { border-left: 1px solid #5588cc; }
+
+    /* ── LAYOUT ── */
+    #wrapper {
+      max-width: 780px;
+      margin: 14px auto;
+      display: flex;
+      gap: 14px;
+      padding: 0 10px;
+      align-items: flex-start;
+    }
+
+    /* ── MAIN CONTENT ── */
+    #main {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* search results banner */
+    #search-results-banner {
+      background: #fffbe6;
+      border: 1px solid #e6c800;
+      border-left: 4px solid #e6c800;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      color: #555;
+      display: none;
+    }
+
+    .post-box {
+      background: #faf8f0;
+      border: 1px solid #b8b090;
+      border-top: 3px solid #2a4d7f;
+      margin-bottom: 14px;
+      padding: 0;
+    }
+    .post-header {
+      background: #eae6d5;
+      border-bottom: 1px solid #c8c0a0;
+      padding: 8px 12px;
+    }
+    .post-title {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .post-title a {
+      color: #1a3560;
+      text-decoration: none;
+    }
+    .post-title a:hover { text-decoration: underline; color: #c00; }
+    .post-meta {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+      margin-top: 3px;
+    }
+    .post-meta span { color: #2a4d7f; }
+    .post-body {
+      padding: 10px 12px;
+      line-height: 1.7;
+      color: #333;
+      font-size: 12.5px;
+    }
+    .post-footer {
+      background: #eae6d5;
+      border-top: 1px solid #c8c0a0;
+      padding: 5px 12px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .post-footer a {
+      color: #2a4d7f;
+      text-decoration: none;
+    }
+    .post-footer a:hover { text-decoration: underline; color: #c00; }
+    .comment-count { color: #888; }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: 190px;
+      flex-shrink: 0;
+    }
+    .widget {
+      background: #faf8f0;
+      border: 1px solid #b8b090;
+      border-top: 3px solid #2a4d7f;
+      margin-bottom: 12px;
+    }
+    .widget-title {
+      background: #eae6d5;
+      border-bottom: 1px solid #c8c0a0;
+      padding: 6px 10px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      color: #1a3560;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .widget-body { padding: 8px 10px; }
+    .widget-body ul { list-style: none; }
+    .widget-body ul li {
+      border-bottom: 1px dotted #ccc;
+      padding: 4px 0;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+    }
+    .widget-body ul li:last-child { border-bottom: none; }
+    .widget-body ul li a { color: #2a4d7f; text-decoration: none; }
+    .widget-body ul li a:hover { text-decoration: underline; color: #c00; }
+    .widget-body p {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* search widget */
+    .search-form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .search-form input[type="text"] {
+      width: 100%;
+      padding: 4px 6px;
+      border: 1px solid #aaa;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      background: #fff;
+      color: #222;
+    }
+    .search-form input[type="text"]:focus { outline: 1px solid #2a4d7f; }
+    .search-form button {
+      padding: 4px 8px;
+      background: #2a4d7f;
+      color: #fff;
+      border: 1px solid #1a3560;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .search-form button:hover { background: #1a3560; }
+
+    /* ── FOOTER ── */
+    #footer {
+      max-width: 780px;
+      margin: 10px auto 30px;
+      padding: 10px;
+      border-top: 2px solid #b8b090;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+      text-align: center;
+    }
+    #footer a { color: #2a4d7f; }
+
+    /* visitor counter style */
+    .counter-box {
+      text-align: center;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+      margin-top: 4px;
+    }
+    .counter-num {
+      display: inline-block;
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      padding: 2px 6px;
+      letter-spacing: 2px;
+      border: 1px solid #0f0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <div id="header-inner">
+    <div id="site-title">Dave's <span>Tech</span> Corner</div>
+    <div id="site-desc">Ramblings about computers, security, and the internet. Est. 2004.</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div id="nav">
+  <ul>
+    <li><a href="blog.html">Home</a></li>
+    <li><a href="#">Archives</a></li>
+    <li><a href="#">About Me</a></li>
+    <li><a href="#">Links</a></li>
+    <li><a href="#">Guestbook</a></li>
+  </ul>
+</div>
+
+<!-- LAYOUT -->
+<div id="wrapper">
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <!-- REFLECTED XSS BANNER: query param echoed raw -->
+    <div id="search-results-banner"></div>
+
+    <!-- BLOG POSTS -->
+    <div class="post-box">
+      <div class="post-header">
+        <div class="post-title"><a href="blog-post.html?blog=why-passwords-matter">Why Passwords Still Matter in 2004</a></div>
+        <div class="post-meta">Posted on <span>Tuesday, March 09, 2004</span> by <span>Dave</span> &nbsp;|&nbsp; Category: <span>Security</span></div>
+      </div>
+      <div class="post-body">
+        <p>I keep seeing people use "123456" and "password" as their passwords. Folks, we need to talk. With all the worms going around these days, a weak password is basically leaving your front door wide open...</p>
+      </div>
+      <div class="post-footer">
+        <a href="blog-post.html?blog=why-passwords-matter">Read More &raquo;</a>
+        <span class="comment-count">&#x1F4AC; 3 Comments</span>
+      </div>
+    </div>
+
+    <div class="post-box">
+      <div class="post-header">
+        <div class="post-title"><a href="blog-post.html?blog=my-new-router">I Finally Upgraded My Router</a></div>
+        <div class="post-meta">Posted on <span>Saturday, February 21, 2004</span> by <span>Dave</span> &nbsp;|&nbsp; Category: <span>Hardware</span></div>
+      </div>
+      <div class="post-body">
+        <p>After much deliberation I picked up a Linksys WRT54G from Best Buy. Setting up WEP encryption was a bit of a pain but I think I got it working. The signal reaches the garage now which is great...</p>
+      </div>
+      <div class="post-footer">
+        <a href="blog-post.html?blog=my-new-router">Read More &raquo;</a>
+        <span class="comment-count">&#x1F4AC; 7 Comments</span>
+      </div>
+    </div>
+
+    <div class="post-box">
+      <div class="post-header">
+        <div class="post-title"><a href="blog-post.html?blog=ie6-vs-firefox">IE6 vs This New Firefox Thing</a></div>
+        <div class="post-meta">Posted on <span>Monday, January 05, 2004</span> by <span>Dave</span> &nbsp;|&nbsp; Category: <span>Software</span></div>
+      </div>
+      <div class="post-body">
+        <p>My buddy Mike keeps telling me to try Firefox 0.8. I'm a loyal Internet Explorer user but I have to admit the popup blocker sounds nice. The internet has been getting really spammy lately with all those pop-up ads...</p>
+      </div>
+      <div class="post-footer">
+        <a href="blog-post.html?blog=ie6-vs-firefox">Read More &raquo;</a>
+        <span class="comment-count">&#x1F4AC; 12 Comments</span>
+      </div>
+    </div>
+
+    <div class="post-box">
+      <div class="post-header">
+        <div class="post-title"><a href="blog-post.html?blog=blaster-worm">The Blaster Worm Hit My PC (And How I Fixed It)</a></div>
+        <div class="post-meta">Posted on <span>Friday, August 15, 2003</span> by <span>Dave</span> &nbsp;|&nbsp; Category: <span>Security</span></div>
+      </div>
+      <div class="post-body">
+        <p>What a nightmare. My PC kept rebooting every few minutes and I had no idea why. Turns out it was this Blaster worm thing that's been going around. Here's what I did to clean it up...</p>
+      </div>
+      <div class="post-footer">
+        <a href="blog-post.html?blog=blaster-worm">Read More &raquo;</a>
+        <span class="comment-count">&#x1F4AC; 19 Comments</span>
+      </div>
+    </div>
+
+  </div><!-- end #main -->
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+
+    <!-- SEARCH -->
+    <div class="widget">
+      <div class="widget-title">&#x1F50D; Search</div>
+      <div class="widget-body">
+        <form class="search-form" action="blog.html" method="GET">
+          <input type="text" name="q" id="search-input" placeholder="Search posts..." autocomplete="off"/>
+          <button type="submit">Go!</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="widget">
+      <div class="widget-title">About Me</div>
+      <div class="widget-body">
+        <p>Hi! I'm Dave. I work in IT support and like to write about computers and the internet in my spare time. Located in Ohio.</p>
+      </div>
+    </div>
+
+    <!-- RECENT POSTS -->
+    <div class="widget">
+      <div class="widget-title">Recent Posts</div>
+      <div class="widget-body">
+        <ul>
+          <li><a href="blog-post.html?blog=why-passwords-matter">Why Passwords Still Matter</a></li>
+          <li><a href="blog-post.html?blog=my-new-router">I Finally Upgraded My Router</a></li>
+          <li><a href="blog-post.html?blog=ie6-vs-firefox">IE6 vs Firefox</a></li>
+          <li><a href="blog-post.html?blog=blaster-worm">The Blaster Worm Hit My PC</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="widget">
+      <div class="widget-title">Categories</div>
+      <div class="widget-body">
+        <ul>
+          <li><a href="#">Security (2)</a></li>
+          <li><a href="#">Hardware (1)</a></li>
+          <li><a href="#">Software (1)</a></li>
+          <li><a href="#">Misc (0)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- VISITOR COUNTER -->
+    <div class="widget">
+      <div class="widget-title">Visitors</div>
+      <div class="widget-body">
+        <div class="counter-box">
+          <div class="counter-num" id="visit-counter">004821</div>
+          <div style="margin-top:4px;">You are visitor #4,821!</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #sidebar -->
+
+</div><!-- end #wrapper -->
+
+<div id="footer">
+  &copy; 2004 Dave's Tech Corner &nbsp;|&nbsp; Powered by <a href="#">BlogEngine v1.2</a> &nbsp;|&nbsp; Best viewed in IE6 at 800x600
+</div>
+
+<script>
+  // ── REFLECTED XSS ──
+  // The search query is read from the URL and written RAW into the DOM.
+  // This is intentionally vulnerable — no sanitization whatsoever.
+  const params = new URLSearchParams(window.location.search);
+  const query = params.get('q');
+
+  if (query !== null) {
+    const banner = document.getElementById('search-results-banner');
+    banner.style.display = 'block';
+    // !! VULNERABLE LINE — innerHTML with unsanitized user input !!
+    banner.innerHTML = 'Search results for: <strong>' + query + '</strong>';
+  }
+</script>
+</body>
+</html>

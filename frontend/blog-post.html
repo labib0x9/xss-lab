@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dave's Tech Corner</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Tahoma&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #d4cfb8;
+      font-family: 'Merriweather', Georgia, serif;
+      font-size: 13px;
+      color: #222;
+    }
+
+    /* ── HEADER ── */
+    #header {
+      background: #2a4d7f;
+      border-bottom: 4px solid #1a3560;
+    }
+    #header-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 14px 10px 10px;
+    }
+    #site-title {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 26px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 3px #000;
+      letter-spacing: 0.5px;
+    }
+    #site-title a { color: inherit; text-decoration: none; }
+    #site-title span { color: #ffd966; }
+    #site-desc {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      color: #aac4e8;
+      margin-top: 3px;
+      font-style: italic;
+    }
+
+    /* ── NAV ── */
+    #nav {
+      background: #3a6aad;
+      border-bottom: 2px solid #1a3560;
+    }
+    #nav ul {
+      max-width: 780px;
+      margin: 0 auto;
+      list-style: none;
+      display: flex;
+      padding: 0 10px;
+    }
+    #nav ul li a {
+      display: block;
+      padding: 6px 14px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      color: #e8f0fb;
+      text-decoration: none;
+      font-weight: bold;
+      border-right: 1px solid #5588cc;
+    }
+    #nav ul li a:hover { background: #1a3560; color: #ffd966; }
+    #nav ul li:first-child a { border-left: 1px solid #5588cc; }
+
+    /* ── LAYOUT ── */
+    #wrapper {
+      max-width: 780px;
+      margin: 14px auto;
+      display: flex;
+      gap: 14px;
+      padding: 0 10px;
+      align-items: flex-start;
+    }
+
+    /* ── MAIN ── */
+    #main { flex: 1; min-width: 0; }
+
+    /* breadcrumb */
+    .breadcrumb {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+    .breadcrumb a { color: #2a4d7f; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* post */
+    .post-box {
+      background: #faf8f0;
+      border: 1px solid #b8b090;
+      border-top: 3px solid #2a4d7f;
+      margin-bottom: 14px;
+    }
+    .post-header {
+      background: #eae6d5;
+      border-bottom: 1px solid #c8c0a0;
+      padding: 10px 14px;
+    }
+    .post-title {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      color: #1a3560;
+      margin-bottom: 5px;
+    }
+    .post-meta {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+    }
+    .post-meta span { color: #2a4d7f; }
+    .post-body {
+      padding: 14px;
+      line-height: 1.85;
+      color: #333;
+      font-size: 13px;
+    }
+    .post-body p { margin-bottom: 12px; }
+    .post-body p:last-child { margin-bottom: 0; }
+    .post-tags {
+      padding: 8px 14px;
+      background: #eae6d5;
+      border-top: 1px solid #c8c0a0;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+    }
+    .post-tags a { color: #2a4d7f; text-decoration: none; margin-right: 6px; }
+    .post-tags a:hover { text-decoration: underline; }
+
+    /* ── COMMENTS ── */
+    #comments-section {
+      background: #faf8f0;
+      border: 1px solid #b8b090;
+      border-top: 3px solid #6a8fbd;
+    }
+    .comments-header {
+      background: #dde6f0;
+      border-bottom: 1px solid #c8c0a0;
+      padding: 8px 14px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      color: #1a3560;
+    }
+
+    #comments-list { padding: 0 14px; }
+
+    .comment {
+      border-bottom: 1px dotted #ccc;
+      padding: 12px 0;
+    }
+    .comment:last-child { border-bottom: none; }
+    .comment-meta {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    .comment-author {
+      font-weight: bold;
+      color: #2a4d7f;
+      font-size: 12px;
+    }
+    .comment-body {
+      font-size: 12px;
+      line-height: 1.7;
+      color: #333;
+    }
+    .comment-num {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #bbb;
+      float: right;
+    }
+
+    /* no comments */
+    .no-comments {
+      padding: 16px 14px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      color: #aaa;
+      font-style: italic;
+    }
+
+    /* ── COMMENT FORM ── */
+    #comment-form-box {
+      background: #faf8f0;
+      border: 1px solid #b8b090;
+      border-top: 3px solid #6a8fbd;
+      margin-top: 12px;
+    }
+    .form-header {
+      background: #dde6f0;
+      border-bottom: 1px solid #c8c0a0;
+      padding: 8px 14px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 13px;
+      font-weight: bold;
+      color: #1a3560;
+    }
+    .comment-form {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .form-row label {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      font-weight: bold;
+      color: #444;
+    }
+    .form-row input,
+    .form-row textarea {
+      border: 1px solid #aaa;
+      padding: 5px 7px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      background: #fff;
+      color: #222;
+      resize: vertical;
+    }
+    .form-row input:focus,
+    .form-row textarea:focus { outline: 1px solid #2a4d7f; }
+    .form-row textarea { min-height: 80px; }
+    .form-note {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+      font-style: italic;
+    }
+    .submit-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .submit-btn {
+      padding: 5px 16px;
+      background: #2a4d7f;
+      color: #fff;
+      border: 1px solid #1a3560;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .submit-btn:hover { background: #1a3560; }
+    .submit-msg {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      color: green;
+      display: none;
+    }
+
+    /* ── SIDEBAR ── */
+    #sidebar { width: 190px; flex-shrink: 0; }
+    .widget {
+      background: #faf8f0;
+      border: 1px solid #b8b090;
+      border-top: 3px solid #2a4d7f;
+      margin-bottom: 12px;
+    }
+    .widget-title {
+      background: #eae6d5;
+      border-bottom: 1px solid #c8c0a0;
+      padding: 6px 10px;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      color: #1a3560;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .widget-body { padding: 8px 10px; }
+    .widget-body ul { list-style: none; }
+    .widget-body ul li {
+      border-bottom: 1px dotted #ccc;
+      padding: 4px 0;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+    }
+    .widget-body ul li:last-child { border-bottom: none; }
+    .widget-body ul li a { color: #2a4d7f; text-decoration: none; }
+    .widget-body ul li a:hover { text-decoration: underline; color: #c00; }
+    .widget-body p {
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .search-form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .search-form input[type="text"] {
+      width: 100%;
+      padding: 4px 6px;
+      border: 1px solid #aaa;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      background: #fff;
+    }
+    .search-form input[type="text"]:focus { outline: 1px solid #2a4d7f; }
+    .search-form button {
+      padding: 4px 8px;
+      background: #2a4d7f;
+      color: #fff;
+      border: 1px solid #1a3560;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 11px;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    .search-form button:hover { background: #1a3560; }
+
+    /* ── FOOTER ── */
+    #footer {
+      max-width: 780px;
+      margin: 10px auto 30px;
+      padding: 10px;
+      border-top: 2px solid #b8b090;
+      font-family: 'Tahoma', sans-serif;
+      font-size: 10px;
+      color: #888;
+      text-align: center;
+    }
+    #footer a { color: #2a4d7f; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <div id="header-inner">
+    <div id="site-title"><a href="blog.html">Dave's <span>Tech</span> Corner</a></div>
+    <div id="site-desc">Ramblings about computers, security, and the internet. Est. 2004.</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div id="nav">
+  <ul>
+    <li><a href="blog.html">Home</a></li>
+    <li><a href="#">Archives</a></li>
+    <li><a href="#">About Me</a></li>
+    <li><a href="#">Links</a></li>
+    <li><a href="#">Guestbook</a></li>
+  </ul>
+</div>
+
+<!-- LAYOUT -->
+<div id="wrapper">
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <div class="breadcrumb">
+      <a href="blog.html">Home</a> &raquo; <span id="bc-category">Security</span> &raquo; <span id="bc-title">Post</span>
+    </div>
+
+    <!-- BLOG POST -->
+    <div class="post-box">
+      <div class="post-header">
+        <div class="post-title" id="post-title">Loading...</div>
+        <div class="post-meta">
+          Posted on <span id="post-date">–</span> by <span>Dave</span>
+          &nbsp;|&nbsp; Category: <span id="post-category">–</span>
+        </div>
+      </div>
+      <div class="post-body" id="post-body">
+        <!-- content injected by JS -->
+      </div>
+      <div class="post-tags" id="post-tags"></div>
+    </div>
+
+    <!-- COMMENTS -->
+    <div id="comments-section">
+      <div class="comments-header">&#x1F4AC; Comments (<span id="comment-count">0</span>)</div>
+      <div id="comments-list">
+        <div class="no-comments" id="no-comments-msg">No comments yet. Be the first!</div>
+      </div>
+    </div>
+
+    <!-- COMMENT FORM -->
+    <div id="comment-form-box">
+      <div class="form-header">Leave a Comment</div>
+      <div class="comment-form">
+        <p class="form-note">You are posting as Anonymous. No account needed.</p>
+        <div class="form-row">
+          <label for="anon-name">Name <em>(optional — leave blank for "Anonymous")</em></label>
+          <input type="text" id="anon-name" placeholder="e.g. CuriousReader99" maxlength="40" autocomplete="off"/>
+        </div>
+        <div class="form-row">
+          <label for="comment-text">Comment <em>(required)</em></label>
+          <textarea id="comment-text" placeholder="Write your comment here..."></textarea>
+        </div>
+        <div class="submit-row">
+          <button class="submit-btn" onclick="submitComment()">Post Comment</button>
+          <span class="submit-msg" id="submit-msg">✔ Comment posted!</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end #main -->
+
+  <!-- SIDEBAR -->
+  <div id="sidebar">
+
+    <div class="widget">
+      <div class="widget-title">&#x1F50D; Search</div>
+      <div class="widget-body">
+        <form class="search-form" action="blog.html" method="GET">
+          <input type="text" name="q" placeholder="Search posts..." autocomplete="off"/>
+          <button type="submit">Go!</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-title">About Me</div>
+      <div class="widget-body">
+        <p>Hi! I'm Dave. I work in IT support and like to write about computers and the internet. Located in Ohio.</p>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-title">Recent Posts</div>
+      <div class="widget-body">
+        <ul>
+          <li><a href="blog-post.html?blog=why-passwords-matter">Why Passwords Still Matter</a></li>
+          <li><a href="blog-post.html?blog=my-new-router">I Finally Upgraded My Router</a></li>
+          <li><a href="blog-post.html?blog=ie6-vs-firefox">IE6 vs Firefox</a></li>
+          <li><a href="blog-post.html?blog=blaster-worm">The Blaster Worm Hit My PC</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="widget">
+      <div class="widget-title">Categories</div>
+      <div class="widget-body">
+        <ul>
+          <li><a href="#">Security (2)</a></li>
+          <li><a href="#">Hardware (1)</a></li>
+          <li><a href="#">Software (1)</a></li>
+          <li><a href="#">Misc (0)</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- end #sidebar -->
+
+</div><!-- end #wrapper -->
+
+<div id="footer">
+  &copy; 2004 Dave's Tech Corner &nbsp;|&nbsp; Powered by <a href="#">BlogEngine v1.2</a> &nbsp;|&nbsp; Best viewed in IE6 at 800x600
+</div>
+
+<script>
+  // ── BLOG POST DATA ──
+  // Swap this out / fetch from your backend by blog slug
+  const POSTS = {
+    'why-passwords-matter': {
+      title: 'Why Passwords Still Matter in 2004',
+      date: 'Tuesday, March 09, 2004',
+      category: 'Security',
+      tags: ['passwords', 'security', 'basics'],
+      body: `
+        <p>I keep seeing people use "123456" and "password" as their passwords. Folks, we need to talk. With all the worms going around these days — Blaster, Sasser, MyDoom — a weak password is basically leaving your front door wide open with a neon sign saying "ROB ME."</p>
+        <p>A good password should be at least 8 characters long (I'd go for 12 if you can remember it), mix upper and lowercase letters, throw in some numbers, and if the site allows it, a special character like ! or @. Don't use your dog's name. Don't use your birthday. Don't use the name of your favourite football team.</p>
+        <p>I've started writing mine down on a piece of paper and keeping it in my desk drawer. Some security guys say that's a bad idea but I think the bigger threat right now is someone guessing "password123" from the internet, not someone breaking into my house specifically to steal my sticky note.</p>
+        <p>Anyway. Stay safe out there. And patch your Windows — yes, I know Windows Update is annoying. Do it anyway.</p>
+      `
+    },
+    'my-new-router': {
+      title: 'I Finally Upgraded My Router',
+      date: 'Saturday, February 21, 2004',
+      category: 'Hardware',
+      tags: ['router', 'wifi', 'networking', 'linksys'],
+      body: `
+        <p>After much deliberation I picked up a Linksys WRT54G from Best Buy for $79. The guy at the store tried to sell me the $120 Netgear one but honestly I didn't see the point. This thing does 802.11g which is supposed to be five times faster than my old 802.11b setup. Five times!</p>
+        <p>Setting up WEP encryption was a bit of a pain — the interface is not exactly user-friendly — but I got there in the end. You have to type in a hex key which is pretty intimidating the first time. I used a random one I found on a website that generates them for you.</p>
+        <p>The signal now reaches the garage which means I can finally use the laptop out there while I work on the car. My wife is less thrilled because she says I'll never come inside now. She's probably right.</p>
+        <p>One thing I'll say: the documentation is terrible. I spent two hours trying to figure out why the connection kept dropping before I realised I had the MTU set wrong. There's a forum thread about it at Broadbandreports.com if you run into the same issue.</p>
+      `
+    },
+    'ie6-vs-firefox': {
+      title: 'IE6 vs This New Firefox Thing',
+      date: 'Monday, January 05, 2004',
+      category: 'Software',
+      tags: ['browser', 'firefox', 'ie6', 'internet'],
+      body: `
+        <p>My buddy Mike has been going on about Firefox 0.8 for weeks now. I've been a loyal Internet Explorer user since IE4 so I was skeptical. But he finally convinced me to try it and I have to say... it's pretty good actually.</p>
+        <p>The built-in popup blocker alone is worth it. The internet has gotten absolutely overrun with those pop-up ads lately. Half the time I open a website I get five windows launching at once, some of them pretending to be Windows error messages trying to get you to install stuff. Very annoying.</p>
+        <p>Firefox also seems faster loading pages, though that might just be placebo. And I like that the tabs are built right into the browser — I know IE has that with third-party things like Crazy Browser but having it built in feels cleaner.</p>
+        <p>That said, some websites just plain don't work right in Firefox. Banking sites mostly. And some sites actually pop up a message saying "This site requires Internet Explorer." So I'm keeping both installed for now. IE6 for the stubborn sites, Firefox for general browsing.</p>
+      `
+    },
+    'blaster-worm': {
+      title: 'The Blaster Worm Hit My PC (And How I Fixed It)',
+      date: 'Friday, August 15, 2003',
+      category: 'Security',
+      tags: ['malware', 'worm', 'blaster', 'windows', 'security'],
+      body: `
+        <p>What an absolute nightmare. Two weeks ago my PC started rebooting itself every few minutes with no warning, just a countdown timer in a little popup saying "System must shut down." I thought my hardware was failing. Spent an entire evening reseating RAM and checking temperatures before someone on a forum told me it was the Blaster worm.</p>
+        <p>Blaster (also called MSBlast or LoveSAN) exploits a vulnerability in Windows XP's RPC service. If you're connected to the internet and haven't patched, it can get on your machine without you even clicking anything. Mine got hit within about 20 minutes of connecting a fresh install to the internet before I could download the patch. Yes, really. 20 minutes.</p>
+        <p>Here's what I did to fix it: First, disconnect from the internet. Then go to msconfig and disable the msblast.exe entry in startup. Delete C:\Windows\System32\msblast.exe. Reconnect, immediately go to Windows Update and install patch MS03-026. Then run a full antivirus scan just to be sure.</p>
+        <p>Lessons learned: Download patches onto a disc or USB stick before connecting a fresh Windows install to the internet. The internet moves faster than Windows Update does. Stay safe out there folks.</p>
+      `
+    }
+  };
+
+  // ── MOCK COMMENTS (pre-loaded) ──
+  // TODO: Replace with actual API fetch — e.g. GET /api/comments?blog=slug
+  const MOCK_COMMENTS = {
+    'why-passwords-matter': [
+      { name: 'SysAdmin_Bob', date: 'March 10, 2004 at 9:14am', text: 'Great post Dave. I\'d add that using a different password for every site is just as important as making it strong. Hard to do but worth it.' },
+      { name: 'Anonymous', date: 'March 11, 2004 at 3:02pm', text: 'i use the same password for everything lol. if it gets hacked it gets hacked' },
+      { name: 'SecurityNerd2004', date: 'March 12, 2004 at 7:45am', text: 'The sticky note approach is actually debated among security people. Physical threats are real but you\'re right that remote attacks are a bigger daily risk for most users.' }
+    ],
+    'my-new-router': [
+      { name: 'NetGearGuy', date: 'February 22, 2004 at 11:30am', text: 'WEP is already pretty broken FYI. Someone with the right tools can crack it in a few hours. Look into WPA if your router supports it.' },
+      { name: 'Dave', date: 'February 22, 2004 at 2:15pm', text: 'Oh great. Thanks for the heads up, will look into WPA.' },
+      { name: 'TechTinkerer', date: 'February 23, 2004 at 6:00pm', text: 'The WRT54G is a great router. You can even flash it with custom firmware called OpenWRT. Totally changes what you can do with it.' },
+      { name: 'Anonymous', date: 'February 24, 2004 at 9:12am', text: 'I had the same MTU issue! It took me forever to find that forum thread. Should be in the manual honestly.' },
+      { name: 'Anonymous', date: 'March 01, 2004 at 4:22pm', text: 'I got the Netgear one. It\'s fine. Not sure it was worth the extra $40 though.' },
+      { name: 'WifiWatcher', date: 'March 03, 2004 at 8:01am', text: '802.11g is the future. Good choice picking it up now while prices are still reasonable.' },
+      { name: 'GarageHacker', date: 'March 05, 2004 at 5:30pm', text: 'Working on the car with wifi and a laptop = dream setup honestly.' }
+    ],
+    'ie6-vs-firefox': [
+      { name: 'FirefoxFanatic', date: 'January 06, 2004 at 8:00am', text: 'Welcome to the Firefox side! Just wait until 1.0 drops. Going to be amazing.' },
+      { name: 'IEForever', date: 'January 06, 2004 at 10:45am', text: 'Firefox is a fad. Microsoft has all the resources in the world, IE will always be better in the long run.' },
+      { name: 'WebDevGuy', date: 'January 07, 2004 at 2:30pm', text: 'As someone who builds websites for a living, Firefox following web standards properly is a godsend. IE6\'s CSS bugs are a nightmare.' },
+    ],
+    'blaster-worm': [
+      { name: 'ITGuy_Ohio', date: 'August 16, 2003 at 10:00am', text: 'Same thing happened to our whole office. Had to go around to 40 machines manually. What a week that was.' },
+      { name: 'Anonymous', date: 'August 17, 2003 at 3:20pm', text: '20 minutes unpatched before infection. The internet is genuinely wild right now.' },
+    ]
+  };
+
+  // ── RUNTIME STATE ──
+  // In-memory comment additions (lost on refresh — replace with POST /api/comments for real backend)
+  let runtimeComments = [];
+
+  // ── LOAD POST ──
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get('blog') || 'why-passwords-matter';
+  const post = POSTS[slug];
+
+  if (post) {
+    document.title = post.title + ' — Dave\'s Tech Corner';
+    document.getElementById('post-title').textContent = post.title;
+    document.getElementById('post-date').textContent = post.date;
+    document.getElementById('post-category').textContent = post.category;
+    document.getElementById('bc-category').textContent = post.category;
+    document.getElementById('bc-title').textContent = post.title;
+    document.getElementById('post-body').innerHTML = post.body;
+    document.getElementById('post-tags').innerHTML = '&#x1F3F7; Tags: ' + post.tags.map(t => `<a href="#">${t}</a>`).join(' ');
+  } else {
+    document.getElementById('post-title').textContent = '404 — Post Not Found';
+    document.getElementById('post-body').innerHTML = '<p>Sorry, that post doesn\'t exist.</p>';
+  }
+
+  // ── RENDER COMMENTS ──
+  function renderComments() {
+    const preloaded = MOCK_COMMENTS[slug] || [];
+    const allComments = [...preloaded, ...runtimeComments];
+    const list = document.getElementById('comments-list');
+    const noMsg = document.getElementById('no-comments-msg');
+    document.getElementById('comment-count').textContent = allComments.length;
+
+    if (allComments.length === 0) {
+      noMsg.style.display = 'block';
+      return;
+    }
+    noMsg.style.display = 'none';
+    list.innerHTML = '';
+
+    allComments.forEach((c, i) => {
+      const div = document.createElement('div');
+      div.className = 'comment';
+
+      const meta = document.createElement('div');
+      meta.className = 'comment-meta';
+      meta.innerHTML = `<span class="comment-num">#${i + 1}</span><span class="comment-author">${escapeHTML(c.name)}</span> &nbsp;·&nbsp; ${escapeHTML(c.date)}`;
+
+      const body = document.createElement('div');
+      body.className = 'comment-body';
+      // ── SAFE: comment bodies are escaped before rendering ──
+      // TODO: When connecting real backend, ensure server also sanitizes stored content.
+      body.textContent = c.text;
+
+      div.appendChild(meta);
+      div.appendChild(body);
+      list.appendChild(div);
+    });
+  }
+
+  // ── SUBMIT COMMENT ──
+  function submitComment() {
+    const nameInput = document.getElementById('anon-name').value.trim();
+    const textInput = document.getElementById('comment-text').value.trim();
+
+    if (!textInput) {
+      alert('Please write something before posting!');
+      return;
+    }
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric',
+      hour: 'numeric', minute: '2-digit', hour12: true
+    });
+
+    const newComment = {
+      name: nameInput || 'Anonymous',
+      date: dateStr,
+      text: textInput
+    };
+
+    // TODO: Replace with real API call —
+    //   fetch('/api/comments', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ blog: slug, name: newComment.name, text: newComment.text })
+    //   }).then(r => r.json()).then(data => { ... });
+
+    runtimeComments.push(newComment);
+    renderComments();
+
+    document.getElementById('anon-name').value = '';
+    document.getElementById('comment-text').value = '';
+    const msg = document.getElementById('submit-msg');
+    msg.style.display = 'inline';
+    setTimeout(() => msg.style.display = 'none', 3000);
+
+    // scroll to new comment
+    document.getElementById('comments-section').scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  // ── UTILITY ──
+  function escapeHTML(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // Init
+  renderComments();
+</script>
+</body>
+</html>
