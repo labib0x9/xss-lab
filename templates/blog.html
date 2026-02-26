@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dave's Tech Corner - Home</title>
+<link rel="stylesheet" href="/static/stylesheets/blog.css">
+</head>
+<body>
+<!-- HEADER -->
+<div id="header">
+<div id="header-inner">
+<div id="site-title">Dave's <span>Tech</span> Corner</div>
+<div id="site-desc">Ramblings about computers, security, and the internet. Est. 2004.</div>
+</div>
+</div>
+<!-- NAV -->
+<div id="nav">
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="#">Archives</a></li>
+<li><a href="#">About Me</a></li>
+<li><a href="#">Links</a></li>
+<li><a href="#">Guestbook</a></li>
+</ul>
+</div>
+<!-- LAYOUT -->
+<div id="wrapper">
+<!-- MAIN -->
+<div id="main">
+
+<!-- SEARCH RESULTS BANNER --> <!-- xss here --->
+{{if .SearchQuery}}
+<div id="search-results-banner" style="display:block;">
+  Search results for: <strong>{{.SearchQuery}}</strong>
+</div>
+{{end}}
+
+<!-- BLOG POSTS -->
+{{range .Posts}}
+<div class="post-box">
+  <div class="post-header">
+    <div class="post-title"><a href="/post?blog={{.Url}}">{{.Title}}</a></div>
+    <div class="post-meta">
+      Posted on <span>{{.Date}}</span> by <span>Dave</span>
+      &nbsp;|&nbsp; Category: <span>{{.Category}}</span>
+    </div>
+  </div>
+  <div class="post-body">
+    {{.ShortBody}}
+  </div>
+  <div class="post-footer">
+    <a href="/post?blog={{.Url}}">Read More &raquo;</a>
+    <span class="post-tags">
+      {{range .Tag}}<span class="tag">{{.}}</span> {{end}}
+    </span>
+  </div>
+</div>
+{{end}}
+
+</div><!-- end #main -->
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+
+<!-- SEARCH -->
+<div class="widget">
+<div class="widget-title">&#x1F50D; Search</div>
+<div class="widget-body">
+<form class="search-form" action="/" method="GET">
+<input type="text" name="search" id="search-input" placeholder="Search posts..." autocomplete="off"
+value="{{.SearchQuery}}"/>
+<button type="submit">Go!</button>
+</form>
+</div>
+</div>
+
+<!-- ABOUT -->
+<div class="widget">
+<div class="widget-title">About Me</div>
+<div class="widget-body">
+<p>Hi! I'm Dave. I work in IT support and like to write about computers and the internet in my spare time. Located in Ohio.</p>
+</div>
+</div>
+
+<!-- RECENT POSTS -->
+<div class="widget">
+<div class="widget-title">Recent Posts</div>
+<div class="widget-body">
+<ul>
+  {{range .Posts}}
+  <li><a href="/post?blog={{.Url}}">{{.Title}}</a></li>
+  {{end}}
+</ul>
+</div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="widget">
+<div class="widget-title">Categories</div>
+<div class="widget-body">
+<ul>
+  {{range .Posts}}
+  <li><a href="#">{{.Category}}</a></li>
+  {{end}}
+</ul>
+</div>
+</div>
+
+</div><!-- end #sidebar -->
+</div><!-- end #wrapper -->
+
+<div id="footer">
+&copy; 2004 Dave's Tech Corner &nbsp;|&nbsp; Powered by <a href="#">BlogEngine v1.2</a> &nbsp;|&nbsp; Best viewed in IE6 at 800x600
+</div>
+</body>
+</html>
